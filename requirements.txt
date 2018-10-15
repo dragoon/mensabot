@@ -2,3 +2,4 @@ slackclient>=1.1.0
 requests
 lxml
 pytz
+pdfminer.six

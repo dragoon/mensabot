@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-import pytz
 
-from . import MenuParser
+import pdfminer.high_level
+import pdfminer.layout
+import pytz
+import io
 import requests
 import lxml.html
+
+from . import MenuParser
 
 
 class HofliParser(MenuParser):
@@ -20,8 +24,15 @@ class HofliParser(MenuParser):
 
             menu_link = root.xpath('//div[@id="daily-menu"]/a')[0].attrib['href']
             pdf = requests.get(menu_link)
+            input_fp = io.BytesIO(pdf.content)
+            outfp = io.StringIO()
+            laparams = pdfminer.layout.LAParams()
+            laparams.detect_vertical = True
+            pdfminer.high_level.extract_text_to_fp(input_fp, outfp, laparams=laparams)
 
-            menu = self.MENSA_NAME + '\n' + 'Not implemented yet'
+            menu_string = outfp.getvalue()
+
+            menu = self.MENSA_NAME + '\n' + menu_string
 
             return menu
         except Exception as e:
