@@ -1,1 +1,1 @@
-worker: python mensabot.py
+worker: python run.py
