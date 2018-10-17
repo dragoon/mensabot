@@ -9,9 +9,10 @@ import io
 import requests
 import lxml.html
 
+from . import MenuParser
 
 
-class HofliParser():
+class HofliParser(MenuParser):
 
     TIMEZONE = pytz.timezone('Europe/Zurich')
     MENSA_NAME = '*Bärenhöfli*'
@@ -111,6 +112,5 @@ def parse_first_page(text: str):
 
 if __name__ == "__main__":
 
-    text = " Montag 15.  Oktober 2018 Menü Donnerstag 18.  Oktober 2018 Tagessuppe*** Lammgigot ( Neuseeland) Provencale ReisCHF 15.00 Businesslunch Tomaten- Mozzarella- Salat*** Kalbsinvoltini (CH) Bratkartoffeln GemüseCHF 22.00 Businessdessert Honig- Amaretti- MoussegarniertCHF 5.00Sämtliche  Preise in CHF und inkl. MWST /  Preisänderungen vorbehalten Dienstag 16.  Oktober 2018 Menü Tagessalat*** Schweinscalvadosbraten (CH)mit Dörrapfel Kartoffelstock und  GemüseCHF 15.00 Businesslunch Gemischter  Salat*** Hirschgeschnetzeltes ( Neuseeland) Schupfnudeln RosenkohlCHF 22.00 Businessdessert Honig- Amaretti- MoussegarniertCHF 5.00Sämtliche  Preise in CHF und inkl. MWST /  Preisänderungen vorbehalten Mittwoch 17.  Oktober 2018 Menü Tagessuppe*** Pouletbrust (CH) in  Sesam TomatenspaghettiCHF 15.00 BusinesslunchNüsslisalat*** Gebratene  Crevettenmit scharfer  Tomatenrahmsauce ReisCHF 22.00 Businessdessert Honig- Amaretti- MoussegarniertCHF 5.00Sämtliche  Preise in CHF und inkl. MWST /  Preisänderungen vorbehalten Menü Tagessalat*** Bernerteller Siedfleisch  Speck  Zungenwurst (CH) Salzkartoffeln und DörrbohnenCHF 15.00 Businesslunch Gemüsetatar*** Kalbssteak (CH)mit  Pilzsauce Butternudeln und  GemüseCHF 22.00 Businessdessert Honig- Amaretti- MoussegarniertCHF 5.00Sämtliche  Preise in CHF und inkl. MWST /  Preisänderungen vorbehalten"
-    print(get_menu_for_weekday(datetime.now(), parse_first_page(text)))
+    print(HofliParser().get_menu_string(datetime.now()))
 
