@@ -3,3 +3,4 @@ requests
 lxml
 pytz
 pdfminer.six
+PyPDF2
