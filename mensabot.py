@@ -90,6 +90,7 @@ class MensaBot:
         # Sends the response back to the channel
         self.client.api_call(
             "chat.postMessage",
+            icon_emoji=':knife_fork_plate:',
             channel=channel,
             text=response or default_response
         )
