@@ -3,6 +3,7 @@ Based on the code from
 https://www.fullstackpython.com/blog/build-first-slack-bot-python.html (https://github.com/mattmakai/slack-starterbot/)
 https://github.com/ianhillmedia/slackbot-for-heroku
 """
+import random
 import time
 import re
 from typing import List
@@ -21,6 +22,8 @@ MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
 class MensaBot:
     MENU_COMMAND = "menus"
+    RANDOM_QUOTES = ["Updates should happen in the email -- Greg Skoot",
+                     "Load forks and knives face down in a dishwasher -- Aristotle"]
     mensas: List[MenuParser] = None
     username: str = None
     bot_id: str = None
