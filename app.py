@@ -5,6 +5,8 @@ A routing layer for the onboarding bot tutorial built using
 """
 from datetime import datetime
 import json
+from typing import Dict
+
 from mensabot import MensaBot
 from flask import Flask, request, make_response, render_template
 
@@ -14,7 +16,7 @@ slack = pyBot.client
 app = Flask(__name__)
 
 
-def _event_handler(event_type, slack_event):
+def _event_handler(event_type: str, team_id: str, slack_event: Dict):
     """
     A helper function that routes events from Slack to our Bot
     by event type and subtype.
@@ -29,7 +31,6 @@ def _event_handler(event_type, slack_event):
     obj
         Response object with 200 - ok or 500 - No Event Handler error
     """
-    team_id = slack_event["team_id"]
 
     # ============== Return menus ============= #
     if event_type == "message":
@@ -107,7 +108,7 @@ def hears():
     if "event" in slack_event:
         event_type = slack_event["event"]["type"]
         # Then handle the event by event_type and have your bot respond
-        return _event_handler(event_type, slack_event["event"])
+        return _event_handler(event_type, slack_event["team_id"], slack_event["event"])
     # If our bot hears things that are not events we've subscribed to,
     # send a quirky but helpful error response
     return make_response("[NO EVENT IN SLACK REQUEST] These are not the mensas\
