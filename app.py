@@ -33,8 +33,6 @@ def _event_handler(event_type: str, team_id: str, slack_event: Dict):
     """
 
     # ============== Return menus ============= #
-    print(event_type)
-    print(slack_event)
     if event_type == "app_mention":
         print("Received message")
         command = pyBot.parse_bot_command(slack_event)
@@ -110,6 +108,7 @@ def hears():
     # ====== Process Incoming Events from Slack ======= #
     # If the incoming request is an Event we've subcribed to
     if "event" in slack_event:
+        print(slack_event)
         event_type = slack_event["event"]["type"]
         # Then handle the event by event_type and have your bot respond
         return _event_handler(event_type, slack_event["team_id"], slack_event["event"])
