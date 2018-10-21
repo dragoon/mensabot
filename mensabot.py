@@ -95,9 +95,13 @@ class MensaBot(object):
         # Then we'll reconnect to the Slack Client with the correct team's
         # bot token
         self.client = SlackClient(authed_teams[team_id]["bot_token"])
+        print("Mensa Bot connected and running!")
+        self.bot_id = self.client.api_call("auth.test")["user_id"]
+        self.username = self.client.api_call("auth.test")['user']
+        self._log(self.username + ": " + self.bot_id)
 
     def run(self):
-        """Old way to run a bot"""
+        """RTM way to run a bot"""
         if self.client.rtm_connect(with_team_state=False):
             try:
                 print("Mensa Bot connected and running!")
