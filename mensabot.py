@@ -125,11 +125,10 @@ class MensaBot(object):
             If a bot command is found, this function returns a tuple of command and channel.
             If its not found, then this function returns None.
         """
-        if event["type"] == "message" and "subtype" not in event:
-            user_id, command = self.parse_direct_mention(event.get('text', ''))
-            if user_id == self.bot_id:
-                print('Bot id matches')
-                return command
+        user_id, command = self.parse_direct_mention(event.get('text', ''))
+        if user_id == self.bot_id:
+            print('Bot id matches')
+            return command
         return None
 
     def parse_direct_mention(self, message_text):

@@ -35,7 +35,7 @@ def _event_handler(event_type: str, team_id: str, slack_event: Dict):
     # ============== Return menus ============= #
     print(event_type)
     print(slack_event)
-    if event_type == "message":
+    if event_type == "app_mention":
         print("Received message")
         command = pyBot.parse_bot_command(slack_event)
         if command:
