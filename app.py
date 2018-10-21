@@ -32,7 +32,7 @@ def _event_handler(event_type, slack_event):
     team_id = slack_event["team_id"]
 
     # ============== Return menus ============= #
-    if event_type == "message" and slack_event["event"].get("attachments"):
+    if event_type == "message":
         command = pyBot.parse_bot_command(slack_event)
         if command:
             timestamp = datetime.fromtimestamp(float(slack_event['ts']))
@@ -107,7 +107,7 @@ def hears():
     if "event" in slack_event:
         event_type = slack_event["event"]["type"]
         # Then handle the event by event_type and have your bot respond
-        return _event_handler(event_type, slack_event)
+        return _event_handler(event_type, slack_event["event"])
     # If our bot hears things that are not events we've subscribed to,
     # send a quirky but helpful error response
     return make_response("[NO EVENT IN SLACK REQUEST] These are not the mensas\
