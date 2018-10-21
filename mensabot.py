@@ -65,9 +65,6 @@ class MensaBot(object):
         # persistently in  a database.
         self.messages = {}
         self.mensas = [SchanzeParser(), HofliParser()]
-        self.bot_id = self.client.api_call("auth.test")["user_id"]
-        self.username = self.client.api_call("auth.test")['user']
-        self._log(self.username + ": " + self.bot_id)
 
     def auth(self, code):
         """
