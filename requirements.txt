@@ -4,3 +4,4 @@ lxml
 pytz
 pdfminer.six
 PyPDF2
+gunicorn
