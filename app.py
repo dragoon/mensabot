@@ -34,8 +34,10 @@ def _event_handler(event_type: str, team_id: str, slack_event: Dict):
 
     # ============== Return menus ============= #
     if event_type == "message":
+        print("Received message")
         command = pyBot.parse_bot_command(slack_event)
         if command:
+            print("Recognized command")
             timestamp = datetime.fromtimestamp(float(slack_event['ts']))
             pyBot.handle_command(command, slack_event['channel'], timestamp)
             return make_response("Best menus in Bern", 200,)
