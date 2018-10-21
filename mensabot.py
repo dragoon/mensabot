@@ -128,7 +128,7 @@ class MensaBot(object):
         if event["type"] == "message" and "subtype" not in event:
             user_id, command = self.parse_direct_mention(event.get('text', ''))
             if user_id == self.bot_id:
-                print('Message received')
+                print('Bot id matches')
                 return command
         return None
 
