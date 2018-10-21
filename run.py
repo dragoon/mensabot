@@ -1,5 +1,6 @@
-from mensabot import MensaBot
+from mensabot_rtm import MensaBotRtm
+from os import environ
 
 
-pope_bot = MensaBot()
+pope_bot = MensaBotRtm(environ['API_TOKEN'])
 pope_bot.run()

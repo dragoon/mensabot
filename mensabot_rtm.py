@@ -5,9 +5,8 @@ https://github.com/ianhillmedia/slackbot-for-heroku
 """
 import random
 import time
-import os
 import re
-from typing import List, Dict, Optional
+from typing import List
 from datetime import datetime
 
 from slackclient import SlackClient
@@ -21,7 +20,7 @@ RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
 
-class MensaBot(object):
+class MensaBotRtm(object):
     MENU_COMMAND = "menus"
     RANDOM_QUOTES = ["Updates should happen in the email -- Greg Skoot",
                      "Load forks and knives face down in a dishwasher -- Baron Geddon"]
@@ -33,20 +32,12 @@ class MensaBot(object):
     username = None
 
     """ Instantiates a Bot object."""
-    def __init__(self):
-        super(MensaBot, self).__init__()
+    def __init__(self, token):
+        super(MensaBotRtm, self).__init__()
         self.name = "mensabot"
         self.emoji = ":knife_fork_plate:"
 
-        # NOTE: Python-slack requires a client connection to generate
-        # an oauth token. We can connect to the client without authenticating
-        # by passing an empty string as a token and then re-instantiating the
-        # client with a valid OAuth token once we have one.
-        self.client = SlackClient("")
-        # We'll use this dictionary to store the state of each message object.
-        # In a production environment you'll likely want to store this more
-        # persistently in  a database.
-        self.messages = {}
+        self.client = SlackClient(token)
         self.mensas = [SchanzeParser(), HofliParser()]
 
     def run(self):
@@ -76,7 +67,7 @@ class MensaBot(object):
         """
             Parses a list of events coming from the Slack RTM API to find bot commands.
             If a bot command is found, this function returns a tuple of command and channel.
-            If its not found, then this function returns None.
+            If its not found, then this function returns None, None.
         """
         for event in slack_events:
             if event["type"] == "message" and "subtype" not in event:
@@ -116,5 +107,4 @@ class MensaBot(object):
             username=self.name,
             text=response or default_response
         )
-        print(response)
 
