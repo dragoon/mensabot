@@ -154,10 +154,12 @@ class MensaBot(object):
             response = '\n\n'.join([m.get_menu_string(event_time) for m in self.mensas])
 
         # Sends the response back to the channel
-        self.client.api_call(
+        response = self.client.api_call(
             "chat.postMessage",
             icon_emoji=self.emoji,
             channel=channel,
+            username=self.name,
             text=response or default_response
         )
+        print(response)
 
