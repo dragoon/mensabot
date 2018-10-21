@@ -39,7 +39,7 @@ def _event_handler(event_type: str, team_id: str, slack_event: Dict):
         if command:
             print("Recognized command")
             timestamp = datetime.fromtimestamp(float(slack_event['ts']))
-            pyBot.handle_command(command, slack_event['channel'], timestamp)
+            pyBot.handle_command(command, slack_event['channel'], team_id, timestamp)
             return make_response("Best menus in Bern", 200,)
 
     # ============= Event Type Not Found! ============= #
