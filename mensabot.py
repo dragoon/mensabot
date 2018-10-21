@@ -65,6 +65,9 @@ class MensaBot(object):
         # persistently in  a database.
         self.messages = {}
         self.mensas = [SchanzeParser(), HofliParser()]
+        self.bot_id = self.client.api_call("auth.test")["user_id"]
+        self.username = self.client.api_call("auth.test")['user']
+        self._log(self.username + ": " + self.bot_id)
 
     def auth(self, code):
         """
@@ -96,9 +99,6 @@ class MensaBot(object):
         # bot token
         self.client = SlackClient(authed_teams[team_id]["bot_token"])
         print("Mensa Bot connected and running!")
-        self.bot_id = self.client.api_call("auth.test")["user_id"]
-        self.username = self.client.api_call("auth.test")['user']
-        self._log(self.username + ": " + self.bot_id)
 
     def run(self):
         """RTM way to run a bot"""
@@ -130,10 +130,9 @@ class MensaBot(object):
             If its not found, then this function returns None.
         """
         user_id, command = self.parse_direct_mention(event.get('text', ''))
-        if user_id == self.bot_id:
-            print('Bot id matches')
-            return command
-        return None
+        # if user_id == self.bot_id:
+        #     print('Bot id matches')
+        return command
 
     def parse_direct_mention(self, message_text):
         """
