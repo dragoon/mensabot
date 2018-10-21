@@ -11,8 +11,6 @@ from mensabot import MensaBot
 from flask import Flask, request, make_response, render_template
 
 pyBot = MensaBot()
-slack = pyBot.client
-
 app = Flask(__name__)
 
 
