@@ -35,32 +35,33 @@ class HofliParser(MenuParser):
             text = text.replace(',', '')
             menus = parse_first_page(text)
 
-            menu = self.MENSA_NAME + '\n' + get_menu_for_weekday(timestamp, menus)
+            menu = self.MENSA_NAME + '\n' + self.get_menu_for_weekday(timestamp, menus)
 
             return menu
         except Exception as e:
             print(e)
         return self.MENSA_NAME + ": exception occurred"
 
+    def get_menu_for_weekday(self, timestamp: datetime, menus: Dict[str, Dict]):
+        weekday = timestamp.weekday()
+        menu = None
+        if weekday == 0:
+            menu = menus['Montag']
+        elif weekday == 1:
+            menu = menus['Donnerstag']
+        elif weekday == 2:
+            menu = menus['Dienstag']
+        elif weekday == 3:
+            menu = menus['Mittwoch']
 
-def get_menu_for_weekday(timestamp: datetime, menus: Dict[str, Dict]):
-    weekday = timestamp.weekday()
-    menu = None
-    if weekday == 0:
-        menu = menus['Montag']
-    elif weekday == 1:
-        menu = menus['Donnerstag']
-    elif weekday == 2:
-        menu = menus['Dienstag']
-    elif weekday == 3:
-        menu = menus['Mittwoch']
+        if menu is None:
+            return 'No menu for today!'
 
-    if menu is None:
-        return 'No menu for today!'
-
-    menu_string = 'Daily: {}, {} CHF\nBusinesslunch: {}, {} CHF'.format(menu['daily'], menu['daily_price'],
-                                                                menu['menu'], menu['price'])
-    return menu_string
+        menu['daily'] = self.emojify_menu(menu['daily'])
+        menu['menu'] = self.emojify_menu(menu['menu'])
+        menu_string = 'Daily: {}, {} CHF\nBusinesslunch: {}, {} CHF'.format(menu['daily'], menu['daily_price'],
+                                                                            menu['menu'], menu['price'])
+        return menu_string
 
 
 def parse_first_page(text: str):

@@ -27,7 +27,7 @@ class SchanzeParser(MenuParser):
             div.tail = ": "
 
         dishes = root.xpath('//div[@id="{}"]//div[@class="lunchgate__dish"]'.format(tab_name))
-        menu = '\n'.join([d.text_content() for d in dishes])
+        menu = '\n'.join([self.emojify_menu(d.text_content()) for d in dishes])
         menu = self.MENSA_NAME + '\n' + menu
 
         return menu
