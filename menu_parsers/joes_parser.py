@@ -10,7 +10,7 @@ import lxml.html
 class JoesParser(MenuParser):
 
     TIMEZONE = pytz.timezone('Europe/Zurich')
-    MENSA_NAME = '*Joe's Popup*'
+    MENSA_NAME = '*Joe\'s Popup*'
 
     def get_menu_string(self, timestamp):
         html_body = requests.get("https://www.joes-popup.ch/menuplan/").text
