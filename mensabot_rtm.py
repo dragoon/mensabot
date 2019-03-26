@@ -15,6 +15,7 @@ from slackclient import SlackClient
 from menu_parsers import MenuParser
 from menu_parsers.barenhofli_parser import HofliParser
 from menu_parsers.schanze_parser import SchanzeParser
+from menu_parsers.joes_parser import JoesParser
 
 RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
@@ -38,7 +39,7 @@ class MensaBotRtm(object):
         self.emoji = ":knife_fork_plate:"
 
         self.client = SlackClient(token)
-        self.mensas = [SchanzeParser(), HofliParser()]
+        self.mensas = [SchanzeParser(), HofliParser(), JoesParser()]
 
     def run(self):
         """RTM way to run a bot"""
