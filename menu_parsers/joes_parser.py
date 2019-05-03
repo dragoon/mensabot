@@ -21,5 +21,6 @@ class JoesParser(MenuParser):
             if len(menu_title) > 0:
                 if timestamp.strftime("%d.%m.%Y") in menu_title[0].text_content():
                     menu = self.MENSA_NAME + '\n' + menu_content.xpath('div[@class="post_detail menu_excerpt"]')[0].text_content()
+                    return menu
 
-        return menu
+        return ""
